@@ -50,7 +50,7 @@ Wenn man die Applikation im Verzeichnis `HttpsClient` mit `mvn spring-boot:run` 
 
 Ruft man hingegen den Proxy für https:\\localhost:8081 auf, bekommt man eine Fehlermeldung, die besagt, dass das Zertifikat nicht geprüft werden kann:
 
-* http://localhost:8080/local-https ==> `I/O error on GET request for "https://localhost:8443/": Connection refused`
+* http://localhost:8080/local-https ==> `PKIX path building failed: sun.security.provider.certpath.SunCertPathBuilderException: unable to find valid certification path to requested target`
 
 
 ## Dem JRE "beibringen" unserem eingenen Zertifikat zu vertrauen
@@ -105,23 +105,9 @@ keytool -delete -alias localhost-1 -keystore "C:\Program Files\Java\jdk-11\lib\s
 
 
 ### Der Test 
+Im Verzeichnis `HttpsClient` 
 
+1. Die Application HttpsClient stoppen falls nicht schon geschehen
+2. Die Applikation mit `mvn spring-boot:run` neu starten
+3. Die Seite http://localhost:8080/local-https öffnen ==> `This is the respons of a HTTPS Server`
 
-
-
-
-
-
-#ein privates Schlüsselpaar in einem Java Key Store erstellen
-keytool -genkeypair -alias johannes_test -keyalg RSA -keysize 2048 -keystore johannes_test.jks -validity 3650 -ext "SAN:c=DNS:localhost,IP:127.0.0.1"
-
-
-
-keytool -importkeystore -srckeystore johannes_test.jks -destkeystore johannes_test.p12 -deststoretype pkcs12
-
-
-
-keytool -importcert -file SCHWARZRootCertificateAuthority2015G2.cer -keystore keystore.p12 -alias "johannes_test" 
-
-https://stackoverflow.com/questions/2138940/import-pem-into-java-key-store
-https://commandlinefanatic.com/cgi-bin/showarticle.cgi?article=art049
