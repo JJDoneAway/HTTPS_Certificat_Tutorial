@@ -1,4 +1,4 @@
-#Mini Tutorial für den Umgang mit SSL Zertifikaten in Java für HTTPS
+# Mini Tutorial für den Umgang mit SSL Zertifikaten in Java für HTTPS
 
 ## Intro
 Wenn ein Webservice unter HTTPS läuft, so wird nicht nur die Kommunikation der beiden Parteien verschlüsselt, sondern der Cient überprüft am Anfang der Kommunikation ebenfalls, ob er dem Server vertrauen kann oder nicht. Dazu sendet der Server dem Client sein Zertifikat. 
